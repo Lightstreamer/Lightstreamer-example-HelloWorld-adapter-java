@@ -135,7 +135,7 @@ Please [post to our support forums](forums.lightstreamer.com) any feedback or qu
 
 # See Also #
 
-## Lightstreamer Adapters needed by this demo client ##
+## Clients using this Adapter ##
 
 * ["Hello World" with Lightstreamer Colosseo](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript)
 
