@@ -121,7 +121,7 @@ The final step is to create a <b>deployment descriptor</b> for this Adapter. Thi
 </adapters_conf>
 ```
 
-We assign an <b>ID</b> to our Adapter: <b>"HELLOWORLD"</b>. This is the same that we used in the setAdapterName method of the client. Then, we define a default Metadata Adapter (a Metadata Adapter is responsible for managing authentication, authorization, and quality of service; we don't need any custom behavior for our application). And we define the main class of our brand new Data Adapter.
+We assign an <b>ID</b> to our Adapter: <b>"HELLOWORLD"</b>. This is the same that we used in the setAdapterName method of the client. Then, we define a default Metadata Adapter (a Metadata Adapter is responsible for managing authentication, authorization, and quality of service; we don't need any custom behavior for our application). And we define the main class of our brand new Data Adapter.<br>
 An example of deploy directory of this Data Adapter is shown in the "deploy.zip" file of [latest release](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java/releases) of this project.
 
 ## Ready to go ##
