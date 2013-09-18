@@ -140,6 +140,11 @@ Please [post to our support forums](forums.lightstreamer.com) any feedback or qu
 
 * ["Hello World" with Lightstreamer Colosseo](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript)
 
+## Related projects ##
+
+* [Lightstreamer "Hello World" Adapter for .NET](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-dotnet)
+* [Lightstreamer "Hello World" Adapter for Sockets](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-socket)
+
 # Lightstreamer Compatibility Notes #
 
 - Compatible with Lightstreamer Java Adapter API version 5.1 or newer.
