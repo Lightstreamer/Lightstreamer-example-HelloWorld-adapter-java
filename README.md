@@ -1,4 +1,4 @@
-# Lightstreamer - "Hello World" Tutorial - Java SE Adapter #
+# Lightstreamer - "Hello World" Tutorial - Java Adapter #
 
 Lightstreamer is made up of a Server and a set of Client libraries. Lightstreamer's job is to push real-time data over the Web in both directions (from the server to the clients and from the clients to the server). To do that, it uses a set of techniques refined and tuned over the last 13 years, including HTTP Streaming, Comet, and WebSockets.<br>
 
