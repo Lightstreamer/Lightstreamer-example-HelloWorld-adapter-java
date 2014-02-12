@@ -125,7 +125,9 @@ The final step is to create a <b>deployment descriptor</b> for this Adapter. Thi
 </adapters_conf>
 ```
 
-We assign an <b>ID</b> to our Adapter: <b>"HELLOWORLD"</b>. This is the same that we used in the setAdapterName method of the client. Then, we define a default Metadata Adapter (a Metadata Adapter is responsible for managing authentication, authorization, and quality of service; we don't need any custom behavior for our application). And we define the main class of our brand new Data Adapter.<br>
+We assign an <b>ID</b> to our Adapter: <b>"HELLOWORLD"</b>. This is the same that we used in the setAdapterName method of the client.<br>
+Then, we define a default Metadata Adapter in this case the [LiteralBasedProvider](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java), that usually comes pre-installed in the Lightstreamer server (a Metadata Adapter is responsible for managing authentication, authorization, and quality of service; we don't need any custom behavior for our application).
+And we define the main class of our brand new Data Adapter.<br>
 An example of deploy directory of this Data Adapter is shown in the "deploy.zip" file of [latest release](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java/releases) of this project.
 
 ## Ready To Go ##
@@ -152,6 +154,7 @@ Please [post to our support forums](forums.lightstreamer.com) any feedback or qu
 
 * [Lightstreamer - "Hello World" Tutorial - .NET Adapter](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-dotnet)
 * [Lightstreamer - "Hello World" Tutorial - TCP Sockets Adapter](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-socket)
+* [Lightstreamer - Reusable Metadata Adapters - Java Adapter](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java)
 
 # Lightstreamer Compatibility Notes #
 
