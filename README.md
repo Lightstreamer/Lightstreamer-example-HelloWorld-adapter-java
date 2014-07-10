@@ -1,36 +1,41 @@
 # Lightstreamer - "Hello World" Tutorial - Java Adapter #
 
 <!-- START DESCRIPTION lightstreamer-example-helloworld-adapter-java -->
+The demos of the "Hello World with Lightstreamer" series are very basic examples where we push the alternated strings "Hello" and "World", followed by the current timestamp, from the server to the browser. 
+
+This project contains the source code and all the resources needed to install the Java Data Adapter for the "Hello World" Tutorial.
+
+As example of [Clients Using This Adapter](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java#clients-using-this-adapter), you may refer to the [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript).
+
+## Details
 
 Lightstreamer is made up of a Server and a set of Client libraries. Lightstreamer's job is to push real-time data over the Web in both directions (from the server to the clients and from the clients to the server). To do that, it uses a set of techniques refined and tuned over the last 13 years, including HTTP Streaming, Comet, and WebSockets.<br>
 
-Let's see how to build a "Hello World" application with Lightstreamer. The client will be based on <b>HTML</b> and <b>JavaScript</b>, while the server-side Data Adapter will be based on <b>Java</b>.<br>
+Let's see how to build a "Hello World" application with Lightstreamer. The client will be based on *HTML* and *JavaScript*, while the server-side Data Adapter will be based on *Java*.
 
 This project focuses on the server-side Adapter.
 
 <!-- END DESCRIPTION lightstreamer-example-helloworld-adapter-java -->
 
-## What Do We Want Our Application to Do? ##
+### What Do We Want Our Application to Do?
 
 Let's keep the application very basic. We want to push the alternated strings "Hello" and "World", followed by the current timestamp, from the server to the browser. Yes, a very exciting application :-)
 
-## What Data Model Should We Use? ##
+### What Data Model Should We Use?
 
-In the Lightstreamer framework, you subscribe to <b>Items</b>. An item is made up of a number of fields whose values change over time. Here are some examples of possible items:
+In the Lightstreamer framework, you subscribe to *Items*. An item is made up of a number of fields whose values change over time. Here are some examples of possible items:
 
-* An item in Lightstreamer could represent an item on <b>eBay</b>, say, a pair of "Nike Air Jordan" shoes. The <b>Item name</b> would be "NIKE-AIR-JORDAN-XX3-XXIII-23-PREMIER-Limited-sz-10". Some fields would be: <i>current_bid, total_bids,</i> and <i>high_bidder</i>. When a field changes, the new value is pushed to the browser and displayed in real time.
+* An item in Lightstreamer could represent an item on *eBay*, say, a pair of "Nike Air Jordan" shoes. The <b>Item name</b> would be "NIKE-AIR-JORDAN-XX3-XXIII-23-PREMIER-Limited-sz-10". Some fields would be: <i>current_bid, total_bids,</i> and <i>high_bidder</i>. When a field changes, the new value is pushed to the browser and displayed in real time.
 * An item could represent a <b>weather probe</b>. The Item name would be, for example, "Mt_Everest_Probe.1" ([this probe was left by MIT](http://web.media.mit.edu/%7Efletcher/argos/weather-probes.html) after the 1998 Everest Expedition). Some fields would be: <i>temperature, barometric_pressure,</i> and <i>light_level</i>.
 * In <b>finance market data dissemination</b>, an item often represents a stock quote. The item name would be, for example, "TIBX.O" (TIBCO Software Inc. on Nasdaq). Some fields would be: <i>TRDPRC_1, TRDTIM_1, BID,</i> and <i>ASK</i>.
 
 That said, how can we represent our very complex <b>Hello World</b> messages? Of course through an item... The item name will be <b>"greetings"</b>. It will have two fields: <i>message</i> and <i>timestamp</i>.
 
-## Let's Get Started ##
+The demo is based on two components: the HTML front-end (on the client side) of which fully details you can find at [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript), and the Data Adapter (on the server side) detailed in this project.
 
-First, [download and install Lightstreamer Colosseo](http://www.lightstreamer.com/download). After you see some of the pre-installed demos running, you will be sure that the Server is ready to host our application.<br>
+### Dig the Code
 
-Now we need to develop two components: the HTML front-end (on the client side) of which fully details you can find at [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript), and the Data Adapter (on the server side) detailed in this project.
-
-## Creating the Data Adapter ##
+#### The Data Adapter
 
 We need to create the server-side code that will pass the data to the Lightstreamer Server, which in turn will pass it to the front-end. This is done by writing a <b>Data Adapter</b>, a plug-in module that injects data into the Server. Let's choose <b>Java</b> to write our Data Adapter (the other current options would be to use .NET or to work at the TCP socket level, but we are adding more).
 First, we need to implement the <b>SmartDataProvider</b> interface:
@@ -98,17 +103,16 @@ We create a HashMap containing the message (alternating "Hello" and "World") and
 
 The full source code of this Data Adapter is shown in the HelloWorldDataAdapter.java source file of this project.
 
-## Let's Deploy the Adapter ##
+#### The Deployment Descriptor
 
-We should now <b>compile</b> the Data Adapter and plug it into the Lightstreamer Server. To compile it, we need to include the <b>Adapter interface</b> in the Java compiler classpath. We can find this interface in the ls-adapter-interface.jar file located in "Lightstreamer/DOCS-SDKs/sdk_adapter_java/lib" within your installation. If compiling succeeds, you will get two classes:
+Finally the <b>deployment descriptor</b> for this Adapter. 
 
-- HelloWorldDataAdapter$GreetingsThread.class
-- HelloWorldDataAdapter.class
+We assign an **ID** to our Adapter: **"HELLOWORLD"**. This is the same that we used in the setAdapterName method of the client.
 
-To <b>deploy</b> a Data Adapter, we need to create a folder directly under "Lightstreamer/adapters". Let's call it "HelloWorld". Create a "classes" folder inside "HelloWorld" and put the two .class files in it.
+Then, we define a default Metadata Adapter in this case the [LiteralBasedProvider](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java), that usually comes pre-installed in the Lightstreamer server (a Metadata Adapter is responsible for managing authentication, authorization, and quality of service; we don't need any custom behavior for our application).
+And we define the main class of our brand new Data Adapter.
 
-The final step is to create a <b>deployment descriptor</b> for this Adapter. This file should be called "adapters.xml" and put in the "HelloWorld" folder. Its content is very simple:
-
+The `adapters.xml` file should look like:
 ```xml
 <?xml version="1.0"?>
 <adapters_conf id="HELLOWORLD">
@@ -125,24 +129,34 @@ The final step is to create a <b>deployment descriptor</b> for this Adapter. Thi
 </adapters_conf>
 ```
 
-We assign an <b>ID</b> to our Adapter: <b>"HELLOWORLD"</b>. This is the same that we used in the setAdapterName method of the client.<br>
-Then, we define a default Metadata Adapter in this case the [LiteralBasedProvider](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java), that usually comes pre-installed in the Lightstreamer server (a Metadata Adapter is responsible for managing authentication, authorization, and quality of service; we don't need any custom behavior for our application).
-And we define the main class of our brand new Data Adapter.<br>
-An example of deploy directory of this Data Adapter is shown in the "deploy.zip" file of [latest release](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java/releases) of this project.
-
-## Ready To Go ##
-
-Please, in order to test this adapter follow the steps in [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript).
-
-## Final Notes ##
+### Final Notes
 
 This example is really very basic and exploits only a minor portion of the features offered by the Lightstreamer API. To delve a bit more into the API used above you can take a look at the online API references: [Java Adapter API Reference](http://www.lightstreamer.com/docs/adapter_java_api/index.html).
 
 Please [post to our support forums](forums.lightstreamer.com) any feedback or question you might have. Thanks!
 
-# See Also #
 
-## Clients Using This Adapter ##
+## Install
+* Download *Lightstreamer Server* (Lightstreamer Server comes with a free non-expiring demo license for 20 connected users) from [Lightstreamer Download page](http://www.lightstreamer.com/download.htm), and install it, as explained in the `GETTING_STARTED.TXT` file in the installation home directory.
+* Get the `deploy.zip` file of the [latest release](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java/releases), unzip it and copy the just unzipped `HelloWorld` folder into the `adapters` folder of your Lightstreamer Server installation.
+* Launch Lightstreamer Server.
+* Test the Adapter, launching the [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript) listed in [Clients Using This Adapter](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java#clients-using-this-adapter).
+
+## Build
+To build your own version of `HelloWorldDataAdapter.jar`, instead of using the one provided in the `deploy.zip` file from the [Install](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java#install) section above, follow these steps.
+* Download this project.
+* Get the `ls-adapter-interface.jar` file from `DOCS-SDKs/sdk_adapter_java/lib` within your Lightstreamer Server installation, and copy it into the `lib` folder.
+* Build the java source file. Here is an example for that:
+```sh
+> javac -classpath lib/ls-adapter-interface.jar -d tmp_classes -sourcepath src src/HelloWorldDataAdapter.java
+> jar cvf HelloWorldDataAdapter.jar -C tmp_classes .
+```
+* copy the just compiled `HelloWorldDataAdapter.jar` in the `adapters/HelloWorld/lib` folder of your Lightstreamer Server installation.
+
+
+## See Also 
+
+### Clients Using This Adapter
 
 <!-- START RELATED_ENTRIES -->
 
@@ -150,12 +164,12 @@ Please [post to our support forums](forums.lightstreamer.com) any feedback or qu
 
 <!-- END RELATED_ENTRIES -->
 
-## Related Projects ##
+### Related Projects
 
 * [Lightstreamer - "Hello World" Tutorial - .NET Adapter](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-dotnet)
 * [Lightstreamer - "Hello World" Tutorial - TCP Sockets Adapter](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-socket)
 * [Lightstreamer - Reusable Metadata Adapters - Java Adapter](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java)
 
-# Lightstreamer Compatibility Notes #
+## Lightstreamer Compatibility Notes
 
 - Compatible with Lightstreamer Java Adapter API version 5.1 or newer.
