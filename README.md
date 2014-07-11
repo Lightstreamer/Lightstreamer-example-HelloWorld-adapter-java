@@ -28,6 +28,8 @@ That said, how can we represent our very complex *Hello World* messages? Of cour
 ### Dig the Code
 
 We need to create the server-side code that will pass the data to the Lightstreamer Server, which in turn will pass it to the front-end. This is done by writing a *Data Adapter*, a plug-in module that injects data into the Server. Let's choose *Java* to write our Data Adapter (the other current options would be to use .NET or to work at the TCP socket level, but we are adding more).
+
+#### The Data Adapter
 First, we need to implement the `SmartDataProvider` interface:
 
 ```java
