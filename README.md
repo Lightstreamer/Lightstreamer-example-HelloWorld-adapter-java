@@ -12,8 +12,8 @@ As example of [Clients Using This Adapter](https://github.com/Weswit/Lightstream
 Lightstreamer is made up of a Server and a set of Client libraries. Lightstreamer's job is to push real-time data over the Web in both directions (from the server to the clients and from the clients to the server). To do that, it uses a set of techniques refined and tuned over the last 13 years, including HTTP Streaming, Comet, and WebSockets.<br>
 <!-- END DESCRIPTION lightstreamer-example-helloworld-adapter-java -->
 
-The "Hello World" demo is based on two components: the HTML front-end (on the client side) of which fully details you can find at [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript), and the Data Adapter (on the server side) detailed in this project.
-Let's keep the application very basic: we want to push the alternated strings "Hello" and "World", followed by the current timestamp, from the server to the browser. Yes, a very exciting application :-)
+Let's keep the "Hello World" demo very basic: we want to push the alternated strings "Hello" and "World", followed by the current timestamp, from the server to the browser.
+The demo is based on two components: the HTML front-end (on the client side) of which fully details you can find at [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript), and the Data Adapter (on the server side) detailed in this project.
 
 ### Data Model
 
