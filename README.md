@@ -5,7 +5,7 @@ The demos of the "Hello World with Lightstreamer" series are very basic examples
 
 This project contains the source code and all the resources needed to install the Java Data Adapter for the "Hello World" Tutorial.
 
-As example of [Clients Using This Adapter](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java#clients-using-this-adapter), you may refer to the [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript) and view the corresponding [Live Demo](http://demos.lightstreamer.com/HelloWorld/).
+As an example of [Clients Using This Adapter](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java#clients-using-this-adapter), you may refer to the [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript) and view the corresponding [Live Demo](http://demos.lightstreamer.com/HelloWorld/).
 
 ## Details
 
@@ -13,21 +13,21 @@ Lightstreamer is made up of a Server and a set of Client libraries. Lightstreame
 <!-- END DESCRIPTION lightstreamer-example-helloworld-adapter-java -->
 
 Let's keep the "Hello World" demo very basic: we want to push the alternated strings "Hello" and "World", followed by the current timestamp, from the server to the browser.
-The demo is based on two components: the HTML front-end (on the client side) of which fully details you can find at [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript), and the Data Adapter (on the server side) detailed in this project.
+The demo is based on two components: the HTML front-end (on the client side) of which full details you can find at [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript), and the Data Adapter (on the server side) detailed in this project.
 
 ### Data Model
 
 In the Lightstreamer framework, you subscribe to *Items*. An item is made up of a number of fields whose values change over time. Here are some examples of possible items:
 
-* An item in Lightstreamer could represent an item on *eBay*, say, a pair of "Nike Air Jordan" shoes. The <b>Item name</b> would be "NIKE-AIR-JORDAN-XX3-XXIII-23-PREMIER-Limited-sz-10". Some fields would be: <i>current_bid, total_bids,</i> and <i>high_bidder</i>. When a field changes, the new value is pushed to the browser and displayed in real time.
+* An item in Lightstreamer could represent an item on *eBay*, say, a pair of "Nike Air Jordan" shoes. The <b>Item name</b> would be "NIKE-AIR-JORDAN-XX3-XXIII-23-PREMIER-Limited-sz-10". Some fields would be: <i>current_bid, total_bids,</i> and <i>high_bidder</i>. When a field changes, the new value is pushed to the browser and displayed in real-time.
 * An item could represent a <b>weather probe</b>. The Item name would be, for example, "Mt_Everest_Probe.1" ([this probe was left by MIT](http://web.media.mit.edu/%7Efletcher/argos/weather-probes.html) after the 1998 Everest Expedition). Some fields would be: <i>temperature, barometric_pressure,</i> and <i>light_level</i>.
 * In <b>finance market data dissemination</b>, an item often represents a stock quote. The item name would be, for example, "TIBX.O" (TIBCO Software Inc. on Nasdaq). Some fields would be: <i>TRDPRC_1, TRDTIM_1, BID,</i> and <i>ASK</i>.
 
-That said, how can we represent our very complex *Hello World* messages? Of course through an item... The item name will be `greetings`. It will have two fields: `message` and `timestamp`.
+That said, how can we represent our very complex *Hello World* messages? Of course, through an item... The item name will be `greetings`. It will have two fields: `message` and `timestamp`.
 
 ### Dig the Code
 
-We need to create the server-side code that will pass the data to the Lightstreamer Server, which in turn will pass it to the front-end. This is done by writing a *Data Adapter*, a plug-in module that injects data into the Server. Let's choose *Java* to write our Data Adapter (the other current options would be to use .NET or to work at the TCP socket level, but we are adding more).
+We need to create the server-side code that will pass the data to the Lightstreamer Server, which, in turn, will pass it to the front-end. This is done by writing a *Data Adapter*, a plug-in module that injects data into the Server. Let's choose *Java* to write our Data Adapter (the other current options would be to use .NET or to work at the TCP socket level, but we are adding more).
 
 #### The Data Adapter
 First, we need to implement the `SmartDataProvider` interface:
@@ -69,7 +69,7 @@ public void unsubscribe(String itemName)
 }
 ```
 
-We can stop publishing data for that item. If a new user re-subscribes to <b>"greetings"</b>, the subscribe method wiull be called again. This approach avoids consuming processing power for items nobody is currently interested in.
+We can stop publishing data for that item. If a new user re-subscribes to <b>"greetings"</b>, the subscribe method will be called again. This approach avoids consuming processing power for items no one is currently interested in.
 
 Now, let's see what the GreetingsThread does. Its run method is pretty straightforward:
 
@@ -94,12 +94,12 @@ public void run() {
 We create a HashMap containing the message (alternating "Hello" and "World") and the current timestamp. Then we inject the HashMap into the Lightstreamer Server through the listener (and the itemHandle we were passed at subscription time). We do a random pause between 1 and 3 seconds, and we are ready to generate a new event.
 
 The full source code of this Data Adapter is shown in the `HelloWorldDataAdapter.java` source file of this project.
-This example is really very basic and exploits only a minor portion of the features offered by the Lightstreamer API. To delve a bit more into the API used above you can take a look at the online API references: [Java Adapter API Reference](http://www.lightstreamer.com/docs/adapter_java_api/index.html).
+This example is really very basic and exploits only a minor portion of the features offered by the Lightstreamer API. To delve a bit more into the API used above, you can take a look at the online API references: [Java Adapter API Reference](http://www.lightstreamer.com/docs/adapter_java_api/index.html).
 
 #### The Adapter Set Configuration
 
 This Adapter Set Name is configured and will be referenced by the clients as `HELLOWORLD`.
-This demo implements just the Data Adapter, while instead, as Metadata Adapter, we use the ready-made [LiteralBasedProvider](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java), that usually comes pre-installed in the Lightstreamer server. A Metadata Adapter is responsible for managing authentication, authorization, and quality of service, but for this demo we don't need any custom behavior).
+This demo implements just the Data Adapter, while instead, as Metadata Adapter, we use the ready-made [LiteralBasedProvider](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java), that usually comes pre-installed in the Lightstreamer server. A Metadata Adapter is responsible for managing authentication, authorization, and quality of service, but for this demo, we don't need any custom behavior.
 
 The `adapters.xml` file for this demo should look like:
 ```xml
@@ -115,14 +115,14 @@ The `adapters.xml` file for this demo should look like:
 ```
 
 ## Install
-If you want to install a version of this demo in your local Lightstreamer Server, follow these steps.
+If you want to install a version of this demo in your local Lightstreamer Server, follow these steps:
 * Download *Lightstreamer Server* (Lightstreamer Server comes with a free non-expiring demo license for 20 connected users) from [Lightstreamer Download page](http://www.lightstreamer.com/download.htm), and install it, as explained in the `GETTING_STARTED.TXT` file in the installation home directory.
-* Get the `deploy.zip` file of the [latest release](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java/releases), unzip it and copy the just unzipped `HelloWorld` folder into the `adapters` folder of your Lightstreamer Server installation.
+* Get the `deploy.zip` file of the [latest release](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java/releases), unzip it, and copy the just unzipped `HelloWorld` folder into the `adapters` folder of your Lightstreamer Server installation.
 * Launch Lightstreamer Server.
 * Test the Adapter, launching the [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Weswit/Lightstreamer-example-HelloWorld-client-javascript) listed in [Clients Using This Adapter](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java#clients-using-this-adapter).
 
 ## Build
-To build your own version of `HelloWorldDataAdapter.jar`, instead of using the one provided in the `deploy.zip` file from the [Install](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java#install) section above, follow these steps.
+To build your own version of `HelloWorldDataAdapter.jar`, instead of using the one provided in the `deploy.zip` file from the [Install](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java#install) section above, follow these steps:
 * Download this project.
 * Get the `ls-adapter-interface.jar` file from `DOCS-SDKs/sdk_adapter_java/lib` within your Lightstreamer Server installation, and copy it into the `lib` folder.
 * Build the java source file. Here is an example for that:
@@ -130,7 +130,7 @@ To build your own version of `HelloWorldDataAdapter.jar`, instead of using the o
 > javac -classpath lib/ls-adapter-interface.jar -d tmp_classes -sourcepath src src/HelloWorldDataAdapter.java
 > jar cvf HelloWorldDataAdapter.jar -C tmp_classes .
 ```
-* copy the just compiled `HelloWorldDataAdapter.jar` in the `adapters/HelloWorld/lib` folder of your Lightstreamer Server installation.
+* Copy the just compiled `HelloWorldDataAdapter.jar` in the `adapters/HelloWorld/lib` folder of your Lightstreamer Server installation.
 
 ## See Also 
 
