@@ -94,12 +94,13 @@ public void run() {
 We create a HashMap containing the message (alternating "Hello" and "World") and the current timestamp. Then we inject the HashMap into the Lightstreamer Server through the listener (and the itemHandle we were passed at subscription time). We do a random pause between 1 and 3 seconds, and we are ready to generate a new event.
 
 The full source code of this Data Adapter is shown in the `HelloWorldDataAdapter.java` source file of this project.
-This example is really very basic and exploits only a minor portion of the features offered by the Lightstreamer API. To delve a bit more into the API used above, you can take a look at the online API references: [Java Adapter API Reference](http://www.lightstreamer.com/docs/adapter_java_api/index.html).
+This example is really very basic and exploits only a minor portion of the features offered by the Lightstreamer API. To delve a bit more into the API used above, you can take a look at the online API references: [Java In-Process Adapter API Reference](http://www.lightstreamer.com/docs/adapter_java_api/index.html).
 
 #### The Adapter Set Configuration
 
 This Adapter Set Name is configured and will be referenced by the clients as `HELLOWORLD`.
-This demo implements just the Data Adapter, while instead, as Metadata Adapter, we use the ready-made [LiteralBasedProvider](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java), that usually comes pre-installed in the Lightstreamer server. A Metadata Adapter is responsible for managing authentication, authorization, and quality of service, but for this demo, we don't need any custom behavior.
+This demo implements just the Data Adapter, while instead, as Metadata Adapter, we use the [LiteralBasedProvider](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java), a simple full implementation of a Metadata Adapter, already provided by Lightstreamer server.
+A Metadata Adapter is responsible for managing authentication, authorization, and quality of service, but for this demo, we don't need any custom behavior.
 
 The `adapters.xml` file for this demo should look like:
 ```xml
@@ -113,6 +114,9 @@ The `adapters.xml` file for this demo should look like:
    </data_provider>
 </adapters_conf>
 ```
+
+<i>NOTE: not all configuration options of an Adapter Set are exposed by the file suggested above. 
+You can easily expand your configurations using the generic template, `DOCS-SDKs/sdk_adapter_java/doc/adapter_conf_template/adapters.xml`, as a reference.</i>
 
 ## Install
 If you want to install a version of this demo in your local Lightstreamer Server, follow these steps:
@@ -150,7 +154,7 @@ To build your own version of `HelloWorldDataAdapter.jar`, instead of using the o
 
 ## Lightstreamer Compatibility Notes
 
-- Compatible with Lightstreamer Java Adapter API version 5.1 or newer.
+- Compatible with Lightstreamer Java In-Process Adapter API version 5.1 or newer.
 
 ## Final Notes
 
