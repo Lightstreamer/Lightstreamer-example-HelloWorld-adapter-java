@@ -94,7 +94,7 @@ public void run() {
 We create a HashMap containing the message (alternating "Hello" and "World") and the current timestamp. Then we inject the HashMap into the Lightstreamer Server through the listener (and the itemHandle we were passed at subscription time). We do a random pause between 1 and 3 seconds, and we are ready to generate a new event.
 
 The full source code of this Data Adapter is shown in the `HelloWorldDataAdapter.java` source file of this project.
-This example is really very basic and exploits only a minor portion of the features offered by the Lightstreamer API. To delve a bit more into the API used above, you can take a look at the online API references: [Java In-Process Adapter API Reference](http://www.lightstreamer.com/docs/adapter_java_api/index.html).
+This example is really very basic and exploits only a minor portion of the features offered by the Lightstreamer API. To delve a bit more into the API used above, you can take a look at the online API references: [Java In-Process Adapter API Reference](http://www.lightstreamer.com/docs/adapter_java_inprocess_api/index.html).
 
 #### The Adapter Set Configuration
 
