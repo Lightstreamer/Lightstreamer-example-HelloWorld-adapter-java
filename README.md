@@ -148,8 +148,7 @@ To build your own version of `HelloWorldDataAdapter.jar`, instead of using the o
 
 ### Related Projects
 
-* [Lightstreamer - "Hello World" Tutorial - .NET Adapter](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-dotnet)
-* [Lightstreamer - "Hello World" Tutorial - TCP Sockets Adapter](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-socket)
+* [Complete list of "Hello World" Adapter implementations with other technologies](https://github.com/Weswit?query=Lightstreamer-example-HelloWorld-adapter)
 * [Lightstreamer - Reusable Metadata Adapters - Java Adapter](https://github.com/Weswit/Lightstreamer-example-ReusableMetadata-adapter-java)
 
 ## Lightstreamer Compatibility Notes
