@@ -128,7 +128,7 @@ If you want to install a version of this demo in your local Lightstreamer Server
 ## Build
 To build your own version of `HelloWorldDataAdapter.jar`, instead of using the one provided in the `deploy.zip` file from the [Install](https://github.com/Weswit/Lightstreamer-example-HelloWorld-adapter-java#install) section above, follow these steps:
 * Download this project.
-* Get the `ls-adapter-interface.jar` file from `DOCS-SDKs/sdk_adapter_java/lib` within your Lightstreamer Server installation, and copy it into the `lib` folder.
+* Get the `ls-adapter-interface.jar` file from `DOCS-SDKs/sdk_adapter_java_inprocess/lib` within your Lightstreamer Server installation, and copy it into the `lib` folder.
 * Build the java source file. Here is an example for that:
 ```sh
 > javac -classpath lib/ls-adapter-interface.jar -d tmp_classes -sourcepath src src/HelloWorldDataAdapter.java
