@@ -130,7 +130,7 @@ To build your own version of `HelloWorldDataAdapter.jar`, instead of using the o
 * Download this project.
 * Get the `ls-adapter-interface.jar` file from `DOCS-SDKs/sdk_adapter_java_inprocess/lib` within your Lightstreamer Server installation, and copy it into the `lib` folder.
 * Build the java source file. Here is an example for that:
-```
+```sh
  > mkdir tmp_classes
  > javac -classpath lib/ls-adapter-interface.jar -d tmp_classes -sourcepath src src/HelloWorldDataAdapter.java
  > jar cvf HelloWorldDataAdapter.jar -C tmp_classes .
