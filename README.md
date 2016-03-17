@@ -137,6 +137,8 @@ To build your own version of `HelloWorldDataAdapter.jar`, instead of using the o
 ```
 * Copy the just compiled `HelloWorldDataAdapter.jar` in the `adapters/HelloWorld/lib` folder of your Lightstreamer Server installation.
 
+In case you want to use Eclipse for developing & running your own Adapter Set, please follow the instructions provided in this [thread](http://forums.lightstreamer.com/showthread.php?4875-Developing-amp-Running-an-Adapter-Set-Using-Eclipse) of our [Java Adaper API](http://forums.lightstreamer.com/forumdisplay.php?6-Java-Adapter-API) support forum.
+
 ## See Also 
 
 ### Clients Using This Adapter
