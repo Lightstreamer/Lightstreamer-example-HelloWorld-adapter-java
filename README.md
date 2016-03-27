@@ -73,7 +73,7 @@ We can stop publishing data for that item. If a new user re-subscribes to <b>"gr
 
 Now, let's see what the GreetingsThread does. Its run method is pretty straightforward:
 
-```html
+```java
 public void run() {
    int c = 0;
    Random rand = new Random();
