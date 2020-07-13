@@ -126,18 +126,18 @@ If you want to install a version of this demo in your local Lightstreamer Server
 * Test the Adapter, launching the [Lightstreamer - "Hello World" Tutorial - HTML Client](https://github.com/Lightstreamer/Lightstreamer-example-HelloWorld-client-javascript) listed in [Clients Using This Adapter](https://github.com/Lightstreamer/Lightstreamer-example-HelloWorld-adapter-java#clients-using-this-adapter).
 
 ## Build
-To build your own version of `HelloWorldDataAdapter.jar`, instead of using the one provided in the `deploy.zip` file from the [Install](https://github.com/Lightstreamer/Lightstreamer-example-HelloWorld-adapter-java#install) section above, follow these steps:
-* Download this project.
-* Get the `ls-adapter-interface.jar` file from `DOCS-SDKs/sdk_adapter_java_inprocess/lib` within your Lightstreamer Server installation, and copy it into the `lib` folder.
-* Build the java source file. Here is an example for that:
-```sh
- > mkdir tmp_classes
- > javac -classpath lib/ls-adapter-interface.jar -d tmp_classes -sourcepath src src/HelloWorldDataAdapter.java
- > jar cvf HelloWorldDataAdapter.jar -C tmp_classes .
-```
-* Copy the just compiled `HelloWorldDataAdapter.jar` in the `adapters/HelloWorld/lib` folder of your Lightstreamer Server installation.
 
-In case you want to use Eclipse for developing & running your own Adapter Set, please follow the instructions provided in this [thread](http://forums.lightstreamer.com/showthread.php?4875-Developing-amp-Running-an-Adapter-Set-Using-Eclipse) of our [Java Adaper API](http://forums.lightstreamer.com/forumdisplay.php?6-Java-Adapter-API) support forum.
+To build your own version of tis demo, instead of using the one provided in the `deploy.zip` file from the Install section above, you have two options: either use Maven (or other build tools) to take care of dependencies and building (recommended) or gather the necessary jars yourself and build it manually. For the sake of simplicity only the Maven case is detailed here.
+
+### Maven
+
+You can easily build and run this application using Maven through the pom.xml file located in the root folder of this project. As an alternative, you can use an alternative build tool (e.g. Gradle, Ivy, etc.) by converting the provided pom.xml file.
+
+Assuming Maven is installed and available in your path you can build the demo by running
+
+```sh
+ mvn package
+```
 
 ## See Also 
 
@@ -156,7 +156,7 @@ In case you want to use Eclipse for developing & running your own Adapter Set, p
 
 ## Lightstreamer Compatibility Notes
 
-- Compatible with Lightstreamer Java In-Process Adapter API version 5.1 or newer.
+- Compatible with Lightstreamer Java In-Process Adapter API version 7.3.0 or newer.
 
 ## Final Notes
 
