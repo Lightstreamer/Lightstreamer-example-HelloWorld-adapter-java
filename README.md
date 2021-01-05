@@ -99,7 +99,7 @@ This example is really very basic and exploits only a minor portion of the featu
 #### The Adapter Set Configuration
 
 This Adapter Set Name is configured and will be referenced by the clients as `HELLOWORLD`.
-This demo implements just the Data Adapter, while instead, as Metadata Adapter, we use the [LiteralBasedProvider](https://github.com/Lightstreamer/Lightstreamer-example-ReusableMetadata-adapter-java), a simple full implementation of a Metadata Adapter, already provided by Lightstreamer server.
+This demo implements just the Data Adapter, while instead, as Metadata Adapter, we use the [LiteralBasedProvider](https://github.com/Lightstreamer/Lightstreamer-lib-adapter-java-inprocess#literalbasedprovider-metadata-adapter), a simple full implementation of a Metadata Adapter, already provided by Lightstreamer server.
 A Metadata Adapter is responsible for managing authentication, authorization, and quality of service, but for this demo, we don't need any custom behavior.
 
 The `adapters.xml` file for this demo should look like:
@@ -153,7 +153,7 @@ Assuming Maven is installed and available in your path you can build the demo by
 ### Related Projects
 
 * [Complete list of "Hello World" Adapter implementations with other technologies](https://github.com/Lightstreamer?utf8=%E2%9C%93&q=Lightstreamer-example-HelloWorld-adapter&type=&language=)
-* [Lightstreamer - Reusable Metadata Adapters - Java Adapter](https://github.com/Lightstreamer/Lightstreamer-example-ReusableMetadata-adapter-java)
+* [LiteralBasedProvider Metadata Adapter](https://github.com/Lightstreamer/Lightstreamer-lib-adapter-java-inprocess#literalbasedprovider-metadata-adapter)
 
 ## Lightstreamer Compatibility Notes
 
