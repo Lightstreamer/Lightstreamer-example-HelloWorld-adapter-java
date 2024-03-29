@@ -19,7 +19,7 @@ The demo is based on two components: the HTML front-end (on the client side) of 
 
 In the Lightstreamer framework, you subscribe to *Items*. An item is made up of a number of fields whose values change over time. Here are some examples of possible items:
 
-* An item in Lightstreamer could represent an item on *eBay*, say, a pair of "Nike Air Jordan" shoes. The <b>Item name</b> would be "NIKE-AIR-JORDAN-XX3-XXIII-23-PREMIER-Limited-sz-10". Some fields would be: <i>current_bid, total_bids,</i> and <i>high_bidder</i>. When a field changes, the new value is pushed to the browser and displayed in real-time.
+* An item in Lightstreamer could represent an item on *eBay*, say, a pair of "Nike Air Jordan" shoes. The <b>Item name</b> would be "NIKE-AIR-JORDAN-XX3-XXIII-23-PREMIER-Limited-sz-10". Some fields would be: <i>current_bid, total_bids,</i> and <i>high_bidder</i>. When a field changes, the new value is pushed to the browser and displayed in real time.
 * An item could represent a <b>weather probe</b>. The Item name would be, for example, "Mt_Everest_Probe.1" ([this probe was left by MIT](http://web.media.mit.edu/%7Efletcher/argos/weather-probes.html) after the 1998 Everest Expedition). Some fields would be: <i>temperature, barometric_pressure,</i> and <i>light_level</i>.
 * In <b>finance market data dissemination</b>, an item often represents a stock quote. The item name would be, for example, "TIBX.O" (TIBCO Software Inc. on Nasdaq). Some fields would be: <i>TRDPRC_1, TRDTIM_1, BID,</i> and <i>ASK</i>.
 
@@ -120,7 +120,7 @@ You can easily expand your configurations using the generic template, see the [J
 
 ## Install
 
-If you want to install a version of this demo in your local Lightstreamer Server, follow these steps:
+If you want to install a version of this demo on your local Lightstreamer Server, follow these steps:
 * Download *Lightstreamer Server* (Lightstreamer Server comes with a free non-expiring demo license for 20 connected users) from [Lightstreamer Download page](https://lightstreamer.com/download/), and install it, as explained in the `GETTING_STARTED.TXT` file in the installation home directory.
 * Get the `deploy.zip` file of the [latest release](https://github.com/Lightstreamer/Lightstreamer-example-HelloWorld-adapter-java/releases), unzip it, and copy the just unzipped `HelloWorld` folder into the `adapters` folder of your Lightstreamer Server installation.
 * Launch Lightstreamer Server.
@@ -128,7 +128,7 @@ If you want to install a version of this demo in your local Lightstreamer Server
 
 ## Build
 
-To build your own version of tis demo, instead of using the one provided in the `deploy.zip` file from the Install section above, you have two options: either use Maven (or other build tools) to take care of dependencies and building (recommended) or gather the necessary jars yourself and build it manually. For the sake of simplicity only the Maven case is detailed here.
+To build your own version of this demo, instead of using the one provided in the `deploy.zip` file from the Install section above, you have two options: either use Maven (or other build tools) to take care of dependencies and building (recommended) or gather the necessary jars yourself and build it manually. For the sake of simplicity, only the Maven case is detailed here.
 
 ### Maven
 
@@ -161,4 +161,4 @@ Assuming Maven is installed and available in your path you can build the demo by
 
 ## Final Notes
 
-Please [post to our support forums](http://forums.lightstreamer.com) any feedback or question you might have. Thanks!
+Please [post to our support forums](http://forums.lightstreamer.com) any feedback or questions you might have. Thanks!
