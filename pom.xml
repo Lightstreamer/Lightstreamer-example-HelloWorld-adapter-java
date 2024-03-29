@@ -8,7 +8,7 @@
   <packaging>jar</packaging>
 
   <name>example-helloworld-adapter-java</name>
-  <url>http://maven.apache.org</url>
+  <url>https://github.com/Lightstreamer/Lightstreamer-example-HelloWorld-adapter-java</url>
 
   <properties>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -44,6 +44,14 @@
     </plugins>
   </build>
   
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Lightstreamer Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/lightstreamer/Lightstreamer-example-HelloWorld-adapter-java</url>
+    </repository>
+  </distributionManagement>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
