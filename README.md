@@ -110,7 +110,7 @@ The `adapters.xml` file for this demo should look like:
       <adapter_class>com.lightstreamer.adapters.metadata.LiteralBasedProvider</adapter_class>
    </metadata_provider>
    <data_provider>
-      <adapter_class>HelloWorldDataAdapter</adapter_class>
+      <adapter_class>com.lightstreamer.example_helloworld_adapter_java.adapters.HelloWorldDataAdapter</adapter_class>
    </data_provider>
 </adapters_conf>
 ```

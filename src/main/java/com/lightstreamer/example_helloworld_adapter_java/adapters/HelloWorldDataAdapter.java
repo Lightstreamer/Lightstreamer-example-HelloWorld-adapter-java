@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+package com.lightstreamer.example_helloworld_adapter_java.adapters;
+
 import java.util.*;
 import java.io.File;
 import com.lightstreamer.interfaces.data.*;
