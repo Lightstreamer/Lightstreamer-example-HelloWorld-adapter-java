@@ -18,60 +18,88 @@ package com.lightstreamer.example_helloworld_adapter_java.adapters;
 
 import java.util.*;
 import java.io.File;
-import com.lightstreamer.interfaces.data.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
-public class HelloWorldDataAdapter implements SmartDataProvider {
+import com.lightstreamer.adapter.common.InitException;
+import com.lightstreamer.adapter.common.Mode;
+import com.lightstreamer.adapter.data.DataAdapter;
+import com.lightstreamer.adapter.data.ItemListener;
+import com.lightstreamer.adapter.data.ItemManager;
+import com.lightstreamer.adapter.data.SubscriptionException;
 
-    private ItemEventListener listener;
+public class HelloWorldDataAdapter implements DataAdapter {
+
     private volatile GreetingsThread gt;
 
-    public void init(Map params, File configDir) throws DataProviderException {
+    public void init(Map<String, String> params, File configDir) throws InitException {
     }
 
-    public boolean isSnapshotAvailable(String itemName) throws SubscriptionException {
-        return false;
+    @Override
+    public CompletionStage<ItemManager> getItemManager(String itemName) throws SubscriptionException {
+        return CompletableFuture.completedFuture(new HelloWorldItemManager(itemName));
     }
 
-    public void setListener(ItemEventListener listener) {
-        this.listener = listener;
+    @Override
+    public void shutdown() {
     }
 
-    public void subscribe(String itemName, Object itemHandle, boolean needsIterator)
-            throws SubscriptionException, FailureException {
-        if (itemName.equals("greetings")) {
-            gt = new GreetingsThread(itemHandle);
-            gt.start();
+    private class HelloWorldItemManager implements ItemManager {
+
+        private final String itemName;
+        private volatile ItemListener listener;
+
+        HelloWorldItemManager(String itemName) {
+            this.itemName = itemName;
         }
-    }
-    
-    public void subscribe(String itemName, boolean needsIterator)
-                throws SubscriptionException, FailureException {
-    }         	
 
-    public void unsubscribe(String itemName) throws SubscriptionException,
-            FailureException {
-        if (itemName.equals("greetings") && gt != null) {
-            gt.go = false;
+        @Override
+        public Mode getSupportedMode() {
+            return Mode.MERGE;
+        }
+
+        @Override
+        public CompletionStage<Void> subscribe(ItemListener listener) throws SubscriptionException {
+            this.listener = listener;
+            if (itemName.equals("greetings")) {
+                gt = new GreetingsThread(listener);
+                gt.start();
+            }
+            return CompletableFuture.completedFuture(null);
+        }
+
+        @Override
+        public boolean isSnapshotAvailable() {
+            return false;
+        }
+
+        @Override
+        public CompletionStage<Void> unsubscribe() throws SubscriptionException {
+            if (itemName.equals("greetings") && gt != null) {
+                gt.go = false;
+            }
+            this.listener = null;
+            return CompletableFuture.completedFuture(null);
         }
     }
 
     class GreetingsThread extends Thread {
 
-        private final Object itemHandle;
+        private final ItemListener listener;
         public volatile boolean go = true;
 
-        public GreetingsThread(Object itemHandle) {
-            this.itemHandle = itemHandle;
+        public GreetingsThread(ItemListener listener) {
+            this.listener = listener;
         }
 
         public void run() {
-		        int c = 0;
-    		    Random rand = new Random();
+            int c = 0;
+            Random rand = new Random();
             while(go) {
                 Map<String, String> data = new HashMap<String, String>();
                 data.put("message", c % 2 == 0 ? "Hello" : "World");
                 data.put("timestamp", new Date().toString());
-                listener.smartUpdate(itemHandle, data, false);
+                listener.update(data);
                 c++;
                 try {
                     Thread.sleep(1000 + rand.nextInt(2000));

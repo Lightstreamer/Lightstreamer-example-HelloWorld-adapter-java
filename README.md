@@ -30,46 +30,48 @@ That said, how can we represent our very complex *Hello World* messages? Of cour
 We need to create the server-side code that will pass the data to the Lightstreamer Server, which, in turn, will pass it to the front-end. This is done by writing a *Data Adapter*, a plug-in module that injects data into the Server. Let's choose *Java* to write our Data Adapter (the other current options would be to use .NET or to work at the TCP socket level, but we are adding more).
 
 #### The Data Adapter
-First, we need to implement the `SmartDataProvider` interface:
+First, we need to implement the `DataAdapter` interface:
 
 ```java
-public class HelloWorldDataAdapter implements SmartDataProvider {
+public class HelloWorldDataAdapter implements DataAdapter {
 ```
 
-We will be passed a reference to a <b>listener</b> that we will use to inject the real-time events:
+Then we must provide an `ItemManager` for each subscribed item. The `getItemManager` method is called when a new item needs to be managed:
 
 ```java
-private ItemEventListener listener;
-
-public void setListener(ItemEventListener listener) {
-   this.listener = listener;
+@Override
+public CompletionStage<ItemManager> getItemManager(String itemName) throws SubscriptionException {
+    return CompletableFuture.completedFuture(new HelloWorldItemManager(itemName));
 }
 ```
 
-Then we must be ready to accept <b>subscription</b> requests:
+The `HelloWorldItemManager` implements `ItemManager` and handles the lifecycle of each item. When `subscribe` is called, we receive an `ItemListener` scoped to the item, which we use to inject real-time events:
 
 ```java
-public void subscribe(String itemName, Object itemHandle, boolean needsIterator)
-     throws SubscriptionException, FailureException {
-   if (itemName.equals("greetings")) {
-      gt = new GreetingsThread(itemHandle);
-      gt.start();
-   }
+@Override
+public CompletionStage<Void> subscribe(ItemListener listener) throws SubscriptionException {
+    this.listener = listener;
+    if (itemName.equals("greetings")) {
+        gt = new GreetingsThread(listener);
+        gt.start();
+    }
+    return CompletableFuture.completedFuture(null);
 }
 ```
 
-When the `greetings` item is subscribed to by the first user, our Adapter receives that method call and starts a thread that will generate the real-time data. If more users subscribe to the "greetings" item, the subscribe method is not called anymore. When the last user unsubscribes from this item, our Adapter is notified through the <b>unsubscribe</b> call:
+When the `greetings` item is subscribed to by the first user, our Adapter receives that method call and starts a thread that will generate the real-time data. If more users subscribe to the "greetings" item, the subscribe method is not called anymore. When the last user unsubscribes from this item, our Adapter is notified through the `unsubscribe` call:
 
 ```java
-public void unsubscribe(String itemName)
-     throws SubscriptionException, FailureException {
-   if (itemName.equals("greetings") && gt != null) {
-      gt.go = false;
-   }
+@Override
+public CompletionStage<Void> unsubscribe() throws SubscriptionException {
+    if (itemName.equals("greetings") && gt != null) {
+        gt.go = false;
+    }
+    return CompletableFuture.completedFuture(null);
 }
 ```
 
-We can stop publishing data for that item. If a new user re-subscribes to <b>"greetings"</b>, the subscribe method will be called again. This approach avoids consuming processing power for items no one is currently interested in.
+We can stop publishing data for that item. If a new user re-subscribes to `"greetings"`, the subscribe method will be called again. This approach avoids consuming processing power for items no one is currently interested in.
 
 Now, let's see what the GreetingsThread does. Its run method is pretty straightforward:
 
@@ -78,10 +80,10 @@ public void run() {
    int c = 0;
    Random rand = new Random();
    while(go) {
-      Map data = new HashMap();
+      Map<String, String> data = new HashMap<String, String>();
       data.put("message", c % 2 == 0 ? "Hello" : "World");
       data.put("timestamp", new Date().toString());
-      listener.smartUpdate(itemHandle, data, false);
+      listener.update(data);
       c++;
       try {
          Thread.sleep(1000 + rand.nextInt(2000));
@@ -91,7 +93,7 @@ public void run() {
 }
 ```
 
-We create a HashMap containing the message (alternating "Hello" and "World") and the current timestamp. Then we inject the HashMap into the Lightstreamer Server through the listener (and the itemHandle we were passed at subscription time). We do a random pause between 1 and 3 seconds, and we are ready to generate a new event.
+We create a HashMap containing the message (alternating "Hello" and "World") and the current timestamp. Then we inject the HashMap into the Lightstreamer Server through the `ItemListener` bound to the subscribed item. We do a random pause between 1 and 3 seconds, and we are ready to generate a new event.
 
 The full source code of this Data Adapter is shown in the `HelloWorldDataAdapter.java` source file of this project.
 This example is really very basic and exploits only a minor portion of the features offered by the Lightstreamer API. To delve a bit more into the API used above, you can take a look at the online API references: [Java In-Process Adapter API Reference](https://lightstreamer.com/api/ls-adapter-inprocess/latest/index.html).
@@ -99,7 +101,7 @@ This example is really very basic and exploits only a minor portion of the featu
 #### The Adapter Set Configuration
 
 This Adapter Set Name is configured and will be referenced by the clients as `HELLOWORLD`.
-This demo implements just the Data Adapter, while instead, as Metadata Adapter, we use the [LiteralBasedProvider](https://github.com/Lightstreamer/Lightstreamer-lib-adapter-java-inprocess#literalbasedprovider-metadata-adapter), a simple full implementation of a Metadata Adapter, already provided by Lightstreamer server.
+This demo implements just the Data Adapter, while the Metadata Adapter is only a basic implementation which lacks authentication and is suitable only for demos.
 A Metadata Adapter is responsible for managing authentication, authorization, and quality of service, but for this demo, we don't need any custom behavior.
 
 The `adapters.xml` file for this demo should look like:
@@ -107,7 +109,9 @@ The `adapters.xml` file for this demo should look like:
 <?xml version="1.0"?>
 <adapters_conf id="HELLOWORLD">
    <metadata_provider>
-      <adapter_class>com.lightstreamer.adapters.metadata.LiteralBasedProvider</adapter_class>
+      <adapter_class>com.lightstreamer.example_helloworld_adapter_java.adapters.PermissiveMetadataAdapter</adapter_class>
+      <!-- Ensure compatibility with old versions of the demo Clients. -->
+      <support_LiteralBased_subscriptions>Y</support_LiteralBased_subscriptions>
    </metadata_provider>
    <data_provider>
       <adapter_class>com.lightstreamer.example_helloworld_adapter_java.adapters.HelloWorldDataAdapter</adapter_class>
@@ -153,11 +157,11 @@ Assuming Maven is installed and available in your path you can build the demo by
 ### Related Projects
 
 * [Complete list of "Hello World" Adapter implementations with other technologies](https://github.com/Lightstreamer?utf8=%E2%9C%93&q=Lightstreamer-example-HelloWorld-adapter&type=&language=)
-* [LiteralBasedProvider Metadata Adapter](https://github.com/Lightstreamer/Lightstreamer-lib-adapter-java-inprocess#literalbasedprovider-metadata-adapter)
 
 ## Lightstreamer Compatibility Notes
 
-- Compatible with Lightstreamer Java In-Process Adapter API version 7.3.0 or newer.
+- Compatible with Lightstreamer SDK for Java In-Process Adapters since version 9.0.
+- For a version of this example compatible with Lightstreamer SDK for Java In-Process Adapters versions 8.x, please refer to [this tag](https://github.com/Lightstreamer/Lightstreamer-example-HelloWorld-adapter-java/tree/XXXXXXXXXXXXXXXXXXXXX).
 
 ## Final Notes
 
